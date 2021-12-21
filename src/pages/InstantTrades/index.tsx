@@ -7,7 +7,7 @@ import { configuration } from 'src/rpc-providers';
 import { Loader, Heading, Box, Pill } from 'rimble-ui';
 
 export const InstantTrades = () => {
-    const sdk = useRubicSdk(configuration);
+    const { sdk } = useRubicSdk();
 
     return (
         <div>

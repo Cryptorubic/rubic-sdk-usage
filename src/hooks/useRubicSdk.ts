@@ -1,15 +1,25 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Configuration } from 'rubic-sdk/dist/core/sdk/models/configuration';
-import useAsyncEffect from 'use-async-effect';
+import { makeObservable } from 'src/common/MakeObservable';
 import { SDK } from 'rubic-sdk';
 
-export function useRubicSdk(configuration: Configuration) {
-    const [sdk, setSdk] = useState<SDK | undefined>();
+const sdkStore = makeObservable<SDK | null>(null);
 
-    useAsyncEffect(async () => {
-        const sdk = await SDK.createSDK(configuration);
-        setSdk(sdk);
-    }, [configuration])
+export const useRubicSdk = () => {
+    const [sdk, setSdk] = useState<SDK | null>(sdkStore.get());
 
-    return sdk;
+    useEffect(() => {
+        return sdkStore.subscribe(setSdk);
+    }, [sdk, setSdk]);
+
+    const setConfiguration = useCallback(async (configuration: Configuration) => {
+            const sdk = await SDK.createSDK(configuration);
+            sdkStore.set(sdk);
+        }
+    , [setSdk])
+
+    return {
+        sdk,
+        setConfiguration
+    }
 }

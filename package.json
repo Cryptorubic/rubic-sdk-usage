@@ -53,7 +53,7 @@
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "rimble-ui": "^0.14.0",
-    "rubic-sdk": "git+https://github.com/Cryptorubic/rubic-sdk.git#f3d4402d3cfc484ac29f49b28653448d1cf8a1fb",
+    "rubic-sdk": "git+https://github.com/Cryptorubic/rubic-sdk.git#bc3b7d294a3d388e75eef52a46275148e0f8ea19",
     "sass": "^1.45.0",
     "sass-loader": "^12.3.0",
     "semver": "^7.3.5",
