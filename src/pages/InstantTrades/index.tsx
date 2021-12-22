@@ -1,17 +1,16 @@
-import React, { SyntheticEvent, useMemo, useState } from 'react';
-import { BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
+import React, { useMemo, useState } from 'react';
+import { MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
 import { useRubicSdk } from 'src/hooks/useRubicSdk';
 import { InstantTradesPage } from 'src/pages/InstantTrades/components/InstantTradesPage';
-import { configuration } from 'src/rpc-providers';
 
 // @ts-ignore
 import { Loader, Heading, Box, Select, Field } from 'rimble-ui';
 
 export const InstantTrades = () => {
     const { sdk } = useRubicSdk();
-    const options = useMemo(() => Object.values(BLOCKCHAIN_NAME).map(value => ({ value, label: value })), []);
+    const options = useMemo(() => Object.values(MAINNET_BLOCKCHAIN_NAME).map(value => ({ value, label: value })), []);
 
-    const [blockchain, serBlockchain] = useState<BLOCKCHAIN_NAME>(options[0].value);
+    const [blockchain, serBlockchain] = useState<MAINNET_BLOCKCHAIN_NAME>(options[0].value);
 
     return (
         <div>
@@ -21,7 +20,7 @@ export const InstantTrades = () => {
                     ml={2}
                     required={true}
                     options={options}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => serBlockchain(e.target.value as BLOCKCHAIN_NAME)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => serBlockchain(e.target.value as MAINNET_BLOCKCHAIN_NAME)}
                 />
             </Heading.h2>
             {

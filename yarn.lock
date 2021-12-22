@@ -9395,9 +9395,9 @@ rollup@^2.43.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-"rubic-sdk@git+https://github.com/Cryptorubic/rubic-sdk.git#a531e4b1b4ab4b4aa38f36157387412ac6816187":
+"rubic-sdk@git+https://github.com/Cryptorubic/rubic-sdk.git#542f5b453c7c77f1c6e3570294b912608950540a":
   version "0.0.1"
-  resolved "git+https://github.com/Cryptorubic/rubic-sdk.git#a531e4b1b4ab4b4aa38f36157387412ac6816187"
+  resolved "git+https://github.com/Cryptorubic/rubic-sdk.git#542f5b453c7c77f1c6e3570294b912608950540a"
   dependencies:
     assert "^2.0.0"
     axios "^0.22.0"

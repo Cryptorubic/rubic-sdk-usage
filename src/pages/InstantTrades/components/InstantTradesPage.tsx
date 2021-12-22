@@ -1,7 +1,7 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import React from 'react';
 import { SDK } from 'rubic-sdk';
-import { BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
+import { BLOCKCHAIN_NAME, MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
 import { PriceToken } from 'rubic-sdk/dist/core/blockchain/tokens/price-token';
 import { PriceTokenAmount } from 'rubic-sdk/dist/core/blockchain/tokens/price-token-amount';
 import { Web3Pure } from 'rubic-sdk/dist/core/blockchain/web3-pure/web3-pure';
@@ -17,12 +17,12 @@ import { Loader, Box} from 'rimble-ui';
 
 type IProps = {
     sdk: SDK;
-    blockchain: BLOCKCHAIN_NAME;
+    blockchain: MAINNET_BLOCKCHAIN_NAME;
 }
 
 export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
-    const [fromTokenConst, setFromTokenConst] = useState<string>(exampleTokens[blockchain]!.from);
-    const [toTokenConst, setToTokenConst] = useState<string>(exampleTokens[blockchain]!.to);
+    const [fromTokenConst, setFromTokenConst] = useState<{address: string}>({ address: exampleTokens[blockchain].from });
+    const [toTokenConst, setToTokenConst] = useState<{address: string}>({address: exampleTokens[blockchain].to});
     const [fromAmountConst, setFromAmountConst] = useState<number>(0.001);
 
     const [trades, setTrades] = useState<TypedTrade[] | null>(null);
@@ -31,19 +31,28 @@ export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
 
     const [toToken, setToToken] = useState<PriceToken | null>(null);
 
-    const validateAddresses = (addresses: string[] | string) => {
+    const validateAddresses = (addresses: {address: string}[] | {address: string}) => {
         if (Array.isArray(addresses)) {
-            return addresses.every(address => Web3Pure.isAddressCorrect(address));
+            return addresses.every(item => Web3Pure.isAddressCorrect(item.address));
         }
-        return Web3Pure.isAddressCorrect(addresses);
+        return Web3Pure.isAddressCorrect(addresses.address);
     }
+
+    const setFromTokenConstCallback = useCallback(address => {
+        setFromTokenConst({address})
+    }, [setFromTokenConst]);
+
+    const setToTokenConstCallback = useCallback(address => {
+        setToTokenConst({address})
+    }, [setToTokenConst]);
 
     useAsyncEffect(async () => {
         if (!validateAddresses([fromTokenConst, toTokenConst])) {
             return;
         }
 
-        const trades = await sdk.instantTrades.calculateTrade({blockchain, address: fromTokenConst}, fromAmountConst, toTokenConst);
+        const trades = await sdk.instantTrades
+            .calculateTrade({blockchain, ...fromTokenConst}, fromAmountConst, toTokenConst.address);
         setTrades(trades);
     }, [setTrades, blockchain, fromTokenConst, fromAmountConst, toTokenConst]);
 
@@ -53,7 +62,7 @@ export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
             return;
         }
         const from = await PriceTokenAmount.createToken(
-            { blockchain, address: fromTokenConst, weiAmount: new BigNumber(fromAmountConst).multipliedBy(10**18) }
+            { blockchain, ...fromTokenConst, weiAmount: new BigNumber(fromAmountConst).multipliedBy(10**18) }
         );
         setFromToken(from);
     }, [setFromToken, fromTokenConst]);
@@ -64,14 +73,14 @@ export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
             return;
         }
         const to = await PriceToken.createToken(
-            { blockchain, address: toTokenConst}
+            { blockchain, ...toTokenConst}
         );
         setToToken(to);
     }, [setToToken, toTokenConst]);
 
     useEffect(() => {
-        setFromTokenConst(exampleTokens[blockchain]!.from);
-        setToTokenConst(exampleTokens[blockchain]!.to);
+        setFromTokenConst({address: exampleTokens[blockchain]!.from});
+        setToTokenConst({address: exampleTokens[blockchain]!.to});
     }, [blockchain])
 
     return(
@@ -80,11 +89,11 @@ export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
             <CommonTradeInfo
                 fromToken={fromToken}
                 toToken={toToken}
-                fromAddress={fromTokenConst}
-                toAddress={toTokenConst}
+                fromAddress={fromTokenConst.address}
+                toAddress={toTokenConst.address}
                 amount={fromAmountConst}
-                onFromAddressChange={setFromTokenConst}
-                onToAddressChange={setToTokenConst}
+                onFromAddressChange={setFromTokenConstCallback}
+                onToAddressChange={setToTokenConstCallback}
                 onAmountChange={setFromAmountConst}
             />
 

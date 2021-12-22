@@ -1,11 +1,11 @@
-import { BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
+import { BLOCKCHAIN_NAME, MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
 
 type ExampleToken = {
     from: string;
     to: string;
 }
 
-export const exampleTokens: Partial<Record<BLOCKCHAIN_NAME, ExampleToken>> = {
+export const exampleTokens: Record<MAINNET_BLOCKCHAIN_NAME, ExampleToken> = {
     [BLOCKCHAIN_NAME.ETHEREUM]: {
         from: '0x0000000000000000000000000000000000000000',
         to: '0xdac17f958d2ee523a2206206994597c13d831ec7'
