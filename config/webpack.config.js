@@ -1,6 +1,5 @@
 'use strict';
 
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -761,7 +760,10 @@ module.exports = function (webpackEnv) {
             },
           },
         }),
-      new NodePolyfillPlugin()
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+        process: 'process/browser'
+      })
     ].filter(Boolean),
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
