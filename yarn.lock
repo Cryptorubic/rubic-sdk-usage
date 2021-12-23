@@ -9397,7 +9397,7 @@ rollup@^2.43.1:
 
 "rubic-sdk@git+https://github.com/Cryptorubic/rubic-sdk.git":
   version "0.0.1"
-  resolved "git+https://github.com/Cryptorubic/rubic-sdk.git#416eae3e91374a56f3b5faa6fb9c544504dce5c4"
+  resolved "git+https://github.com/Cryptorubic/rubic-sdk.git#0a0f468b079d3b98a7c0a4965fb7e12392e70779"
   dependencies:
     assert "^2.0.0"
     axios "^0.22.0"
