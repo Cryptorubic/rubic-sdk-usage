@@ -1,9 +1,8 @@
 import React, { FunctionComponent, useState } from 'react';
-import { PriceToken } from 'rubic-sdk/dist/core/blockchain/tokens/price-token';
-import { PriceTokenAmount } from 'rubic-sdk/dist/core/blockchain/tokens/price-token-amount';
 
 //@ts-ignore
 import { Card, Flex, Heading, Input, Box } from 'rimble-ui';
+import { PriceToken, PriceTokenAmount } from 'rubic-sdk';
 
 interface IProps {
     fromToken: PriceTokenAmount | null;

@@ -1,4 +1,4 @@
-import { Web3Pure } from 'rubic-sdk/dist/core/blockchain/web3-pure/web3-pure';
+import { Web3Pure } from 'rubic-sdk';
 
 export const validateAddressesObjects = (addresses: {address: string}[] | {address: string}) => {
     if (Array.isArray(addresses)) {

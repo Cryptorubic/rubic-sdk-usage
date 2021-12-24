@@ -1,11 +1,7 @@
 import { FunctionComponent, useCallback } from 'react';
-import { CrossChainTrade } from 'rubic-sdk/dist/features/cross-chain/cross-chain-trade/cross-chain-trade';
-import {
-    UniswapV2AbstractTrade
-} from 'rubic-sdk/dist/features/swap/dexes/common/uniswap-v2-abstract/uniswap-v2-abstract-trade';
-import { TypedTrade } from 'rubic-sdk/dist/features/swap/models/typed-trade';
 // @ts-ignore
 import { Card, Heading, Button, Box } from 'rimble-ui';
+import { CrossChainTrade } from 'rubic-sdk';
 import { WalletButton } from 'src/components/WalletButton';
 import { useAddress } from 'src/hooks/useAddress';
 
@@ -45,7 +41,7 @@ export const CrossChainTradeBlock: FunctionComponent<IProps> = ({ trade }) => {
 
     return (
         <Card mb={3} mx={4} p={0} px={4} pb={4}>
-            <Heading.h4>{trade.from.blockchain}  ➞  {trade.from.blockchain} Trade</Heading.h4>
+            <Heading.h4>{trade.from.blockchain}  ➞  {trade.to.blockchain} Trade</Heading.h4>
             <Box mb={4}>
                 <Box>
                     <span><b>You get:</b></span>{'  '}

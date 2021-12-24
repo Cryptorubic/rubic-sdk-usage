@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { SDK } from 'rubic-sdk';
-import { BLOCKCHAIN_NAME, MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
-import { CrossChainTrade } from 'rubic-sdk/dist/features/cross-chain/cross-chain-trade/cross-chain-trade';
+import { BLOCKCHAIN_NAME, CrossChainTrade, MAINNET_BLOCKCHAIN_NAME, SDK } from 'rubic-sdk';
+
+
 import { validateAddresses } from 'src/common/utils';
 import { CommonCCRTradeInfo } from 'src/pages/CrossChain/components/CommonCCRTradeInfo';
 import { CrossChainTradeBlock } from 'src/pages/CrossChain/components/CrossChainTrade';

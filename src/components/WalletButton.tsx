@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { WalletProvider } from 'rubic-sdk/src/core/sdk/models/configuration';
+import { WalletProvider } from 'rubic-sdk/lib/core/sdk/models/configuration';
 import { useAddress } from 'src/hooks/useAddress';
 // @ts-ignore
 import { MetaMaskButton } from 'rimble-ui';

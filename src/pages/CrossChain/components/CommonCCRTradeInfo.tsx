@@ -1,12 +1,13 @@
 import { BigNumber } from 'bignumber.js';
 import React, { FunctionComponent, useMemo, useState } from 'react';
-import { BLOCKCHAIN_NAME, MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
-import { PriceToken } from 'rubic-sdk/dist/core/blockchain/tokens/price-token';
-import { PriceTokenAmount } from 'rubic-sdk/dist/core/blockchain/tokens/price-token-amount';
+
 
 //@ts-ignore
 import { Card, Flex, Heading, Input, Box, Select } from 'rimble-ui';
+import { BLOCKCHAIN_NAME, MAINNET_BLOCKCHAIN_NAME, PriceToken, PriceTokenAmount } from 'rubic-sdk';
+
 import { validateAddresses } from 'src/common/utils';
+import { useRubicSdk } from 'src/hooks/useRubicSdk';
 import useAsyncEffect from 'use-async-effect';
 
 interface IProps {
@@ -35,6 +36,8 @@ export const CommonCCRTradeInfo: FunctionComponent<IProps> = ({
     onToAddressChange
    }) => {
 
+    const { sdk } = useRubicSdk();
+
     const [fromToken, setFromToken] = useState<PriceTokenAmount | null>(null);
 
     const [toToken, setToToken] = useState<PriceToken | null>(null);
@@ -42,22 +45,22 @@ export const CommonCCRTradeInfo: FunctionComponent<IProps> = ({
     const options = useMemo(() => Object.values(MAINNET_BLOCKCHAIN_NAME).map(value => ({ value, label: value })), []);
 
     useAsyncEffect(async () => {
-        if (!validateAddresses(fromAddress)) {
+        if (!validateAddresses(fromAddress) || !sdk) {
             setFromToken(null);
             return;
         }
-        const from = await PriceTokenAmount.createToken(
-            { blockchain: fromBlockchain, address: fromAddress, weiAmount: new BigNumber(amount).multipliedBy(10**18) }
+        const from = await sdk.tokens.createPriceTokenAmount(
+            { blockchain: fromBlockchain, address: fromAddress, tokenAmount: new BigNumber(amount)}
         );
         setFromToken(from);
     }, [setFromToken, fromAddress, fromBlockchain, amount]);
 
     useAsyncEffect(async () => {
-        if (!validateAddresses(toAddress)) {
+        if (!validateAddresses(toAddress) || !sdk) {
             setToToken(null);
             return;
         }
-        const to = await PriceToken.createToken(
+        const to = await sdk.tokens.createPriceToken(
             { blockchain: toBlockchain, address: toAddress}
         );
         setToToken(to);

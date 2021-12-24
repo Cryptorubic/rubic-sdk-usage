@@ -1,10 +1,8 @@
 import { FunctionComponent, useCallback } from 'react';
-import {
-    UniswapV2AbstractTrade
-} from 'rubic-sdk/dist/features/swap/dexes/common/uniswap-v2-abstract/uniswap-v2-abstract-trade';
-import { TypedTrade } from 'rubic-sdk/dist/features/swap/models/typed-trade';
 // @ts-ignore
 import { Card, Heading, Button, Box } from 'rimble-ui';
+import { TypedTrade, UniswapV2AbstractTrade } from 'rubic-sdk';
+
 import { WalletButton } from 'src/components/WalletButton';
 import { useAddress } from 'src/hooks/useAddress';
 

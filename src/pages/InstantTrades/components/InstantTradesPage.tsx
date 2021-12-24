@@ -1,11 +1,8 @@
 import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import React from 'react';
-import { SDK } from 'rubic-sdk';
-import { BLOCKCHAIN_NAME, MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
-import { PriceToken } from 'rubic-sdk/dist/core/blockchain/tokens/price-token';
-import { PriceTokenAmount } from 'rubic-sdk/dist/core/blockchain/tokens/price-token-amount';
-import { Web3Pure } from 'rubic-sdk/dist/core/blockchain/web3-pure/web3-pure';
-import { TypedTrade } from 'rubic-sdk/dist/features/swap/models/typed-trade';
+import { MAINNET_BLOCKCHAIN_NAME, PriceToken, PriceTokenAmount, SDK, TypedTrade, Web3Pure } from 'rubic-sdk';
+import { useRubicSdk } from 'src/hooks/useRubicSdk';
+
 import { CommonTradeInfo } from 'src/pages/InstantTrades/components/CommonTradeInfo';
 import { InstantTrade } from 'src/pages/InstantTrades/components/Instanttrade';
 import { exampleTokens } from 'src/pages/InstantTrades/constants/example-tokens';
@@ -61,7 +58,7 @@ export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
             setFromToken(null);
             return;
         }
-        const from = await PriceTokenAmount.createToken(
+        const from = await sdk.tokens.createPriceTokenAmount(
             { blockchain, ...fromTokenConst, weiAmount: new BigNumber(fromAmountConst).multipliedBy(10**18) }
         );
         setFromToken(from);
@@ -72,7 +69,7 @@ export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
             setToToken(null);
             return;
         }
-        const to = await PriceToken.createToken(
+        const to = await sdk.tokens.createPriceToken(
             { blockchain, ...toTokenConst}
         );
         setToToken(to);

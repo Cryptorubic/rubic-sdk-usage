@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
+import { MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk';
 import { useRubicSdk } from 'src/hooks/useRubicSdk';
 
 

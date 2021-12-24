@@ -1,5 +1,4 @@
-import { BLOCKCHAIN_NAME } from 'rubic-sdk/dist/core/blockchain/models/BLOCKCHAIN_NAME';
-import { Configuration } from 'rubic-sdk/dist/core/sdk/models/configuration';
+import { BLOCKCHAIN_NAME, Configuration } from 'rubic-sdk';
 
 export const configuration: Configuration = {
     rpcProviders: {
