@@ -1,16 +1,17 @@
 import { FunctionComponent, useCallback } from 'react';
 // @ts-ignore
 import { Card, Heading, Button, Box } from 'rimble-ui';
-import { TypedTrade, UniswapV2AbstractTrade } from 'rubic-sdk';
+import { InstantTrade } from 'rubic-sdk';
+import { isOneInchLikeTrade, isUniswapV2LikeTrade } from 'rubic-sdk/lib/features/swap/type-guards';
 
 import { WalletButton } from 'src/components/WalletButton';
 import { useAddress } from 'src/hooks/useAddress';
 
 interface IProps {
-    instantTrade: TypedTrade
+    instantTrade: InstantTrade
 }
 
-export const InstantTrade: FunctionComponent<IProps> = ({ instantTrade }) => {
+export const InstantTradeComponent: FunctionComponent<IProps> = ({ instantTrade }) => {
     const { state: address } = useAddress();
 
     const onSwap = useCallback(async () => {
@@ -32,7 +33,7 @@ export const InstantTrade: FunctionComponent<IProps> = ({ instantTrade }) => {
             variant: 'processing',
         });
 
-        await instantTrade.trade.swap({onConfirm, onApprove});
+        await instantTrade.swap({onConfirm, onApprove});
 
         //@ts-ignore
         window.toastProvider.addMessage('Successful swap', {
@@ -46,11 +47,11 @@ export const InstantTrade: FunctionComponent<IProps> = ({ instantTrade }) => {
             <Box mb={4}>
                 <Box>
                     <span><b>You get:</b></span>{'  '}
-                    <span>{instantTrade.trade.to.tokenAmount.toFormat(3)}</span>{' '}
-                    <span>{instantTrade.trade.to.symbol}</span>
+                    <span>{instantTrade.to.tokenAmount.toFormat(3)}</span>{' '}
+                    <span>{instantTrade.to.symbol}</span>
                 </Box>
-                {(instantTrade.trade as UniswapV2AbstractTrade).path &&
-                    <Box mt={2}>Path: {(instantTrade.trade as UniswapV2AbstractTrade).path.map(t => t.symbol).join(' ➞ ')}</Box>
+                {(isUniswapV2LikeTrade(instantTrade) || isOneInchLikeTrade(instantTrade)) &&
+                    <Box mt={2}>Path: {instantTrade.path.map(t => t.symbol).join(' ➞ ')}</Box>
                 }
             </Box>
             {

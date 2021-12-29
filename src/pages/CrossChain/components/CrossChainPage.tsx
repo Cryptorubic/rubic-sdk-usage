@@ -50,7 +50,7 @@ export const CrossChainPage: React.FC<IProps> = ({ sdk }) => {
     }, [fromBlockchain]);
 
     useEffect(() => {
-        setFromTokenConst(exampleTokens[toBlockchain]!.to);
+        setToTokenConst(exampleTokens[toBlockchain]!.to);
     }, [toBlockchain])
 
     return(

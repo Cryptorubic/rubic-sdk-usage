@@ -1,10 +1,10 @@
 import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import React from 'react';
-import { MAINNET_BLOCKCHAIN_NAME, PriceToken, PriceTokenAmount, SDK, TypedTrade, Web3Pure } from 'rubic-sdk';
+import { MAINNET_BLOCKCHAIN_NAME, PriceToken, PriceTokenAmount, SDK, Web3Pure, InstantTrade } from 'rubic-sdk';
 import { useRubicSdk } from 'src/hooks/useRubicSdk';
 
 import { CommonTradeInfo } from 'src/pages/InstantTrades/components/CommonTradeInfo';
-import { InstantTrade } from 'src/pages/InstantTrades/components/Instanttrade';
+import { InstantTradeComponent as InstantTradeComponent } from 'src/pages/InstantTrades/components/InstantTradeComponent';
 import { exampleTokens } from 'src/pages/InstantTrades/constants/example-tokens';
 import useAsyncEffect from 'use-async-effect';
 import { BigNumber } from 'bignumber.js';
@@ -22,7 +22,7 @@ export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
     const [toTokenConst, setToTokenConst] = useState<{address: string}>({address: exampleTokens[blockchain].to});
     const [fromAmountConst, setFromAmountConst] = useState<number>(0.001);
 
-    const [trades, setTrades] = useState<TypedTrade[] | null>(null);
+    const [trades, setTrades] = useState<InstantTrade[] | null>(null);
 
     const [fromToken, setFromToken] = useState<PriceTokenAmount | null>(null);
 
@@ -103,7 +103,7 @@ export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {
                 <ul>
                     { trades!!.map(trade =>
                         <li key={trade.type}>
-                            <InstantTrade instantTrade={trade} />
+                            <InstantTradeComponent instantTrade={trade} />
                         </li>
                     )}
                 </ul>

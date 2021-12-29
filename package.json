@@ -53,7 +53,7 @@
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "rimble-ui": "^0.14.0",
-    "rubic-sdk": "^0.0.5",
+    "rubic-sdk": "^0.0.6",
     "sass": "^1.45.0",
     "sass-loader": "^12.3.0",
     "semver": "^7.3.5",
