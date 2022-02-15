@@ -2134,9 +2134,9 @@
   integrity sha512-eMhwJXc931Ihh4tkU+Y7GiLzT/y/DBNpNtr4yU9O2w3SYBsr9NaOPhQlLKRmoWtI54uNwuo0IOUFQjVOTZYRvw==
 
 "@types/node@^12.12.6":
-  version "12.20.45"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.45.tgz#f4980d177999299d99cd4b290f7f39366509a44f"
-  integrity sha512-1Jg2Qv5tuxBqgQV04+wO5u+wmSHbHgpORCJdeCLM+E+YdPElpdHhgywU+M1V1InL8rfOtpqtOjswk+uXTKwx7w==
+  version "12.20.46"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.46.tgz#7e49dee4c54fd19584e6a9e0da5f3dc2e9136bc7"
+  integrity sha512-cPjLXj8d6anFPzFvOPxS3fvly3Shm5nTfl6g8X5smexixbuGUf7hfr21J5tX9JW+UPStp/5P5R8qrKL5IyVJ+A==
 
 "@types/node@^16.11.14":
   version "16.11.14"
@@ -3144,7 +3144,7 @@ browser-process-hrtime@^1.0.0:
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4, browserify-aes@^1.2.0:
   version "1.2.0"
-  resolved "https://registry.npmjs.org/browserify-aes/-/browserify-aes-1.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/browserify-aes/-/browserify-aes-1.2.0.tgz#326734642f403dabc3003209853bb70ad428ef48"
   integrity sha512-+7CHXqGuspUn/Sl5aO7Ea0xWGAtETPXNSAjHo48JfLdPWcMng33Xe4znFvQweqc/uzk5zSOI3H52CYnjCfb5hA==
   dependencies:
     buffer-xor "^1.0.3"
@@ -8020,11 +8020,6 @@ p-timeout@^1.1.1:
   dependencies:
     p-finally "^1.0.0"
 
-p-timeout@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/p-timeout/-/p-timeout-5.0.2.tgz#d12964c4b2f988e15f72b455c2c428d82a0ec0a0"
-  integrity sha512-sEmji9Yaq+Tw+STwsGAE56hf7gMy9p0tQfJojIAamB7WHJYJKf1qlsg9jqBWG8q9VCxKPhZaP/AcXwEoBcYQhQ==
-
 p-try@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/p-try/-/p-try-1.0.0.tgz"
@@ -8139,7 +8134,7 @@ path-type@^4.0.0:
 
 pbkdf2@^3.0.17, pbkdf2@^3.0.3:
   version "3.1.2"
-  resolved "https://registry.npmjs.org/pbkdf2/-/pbkdf2-3.1.2.tgz"
+  resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.1.2.tgz#dd822aa0887580e52f1a039dc3eda108efae3075"
   integrity sha512-iuh7L6jA7JEGu2WxDwtQP1ddOpaJNC4KlDEFfdQajSGgGPNi4OyDc2R7QnbY2bR9QjBVGwgvTdNJZoE7RaxUMA==
   dependencies:
     create-hash "^1.1.2"
@@ -9400,15 +9395,14 @@ rollup@^2.43.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-rubic-sdk@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/rubic-sdk/-/rubic-sdk-0.1.2.tgz#a4ae5bc86805e2f72ceb1aa671a45e0afa85a7a5"
-  integrity sha512-1rGB2bl8/9gr20XP39PAD5QVhqYnvEAJPqcZ1ldVIAtLYFgneF9e59t8FOUAFIw+B86csjFfLDOC5P3QyzStuQ==
+rubic-sdk@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/rubic-sdk/-/rubic-sdk-0.1.4.tgz#c28f64cffea981a4f9d261e339c34cdde9309875"
+  integrity sha512-T+pxmB87M65fWweoJAhaz7IboR5Ce/GGkIvWjcualXEbHDgm11ZKYyl7hdST4TSMMF5uKZIvHTr7IwNot+7ydQ==
   dependencies:
     assert "^2.0.0"
     axios "^0.22.0"
     bignumber.js "^9.0.1"
-    p-timeout "^5.0.2"
     web3 "~1.5.3"
 
 run-parallel@^1.1.9:
