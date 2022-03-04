@@ -45,7 +45,7 @@ export const CrossChainTradeBlock: FunctionComponent<IProps> = ({ trade }) => {
             <Box mb={4}>
                 <Box>
                     <span><b>You get:</b></span>{'  '}
-                    <span>{trade.to.tokenAmount.toFormat(3)}</span>{' '}
+                    <span>{trade.to.tokenAmount.toFixed()}</span>{' '}
                     <span>{trade.to.symbol}</span>
                 </Box>
             </Box>
