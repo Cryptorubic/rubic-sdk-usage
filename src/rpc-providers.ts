@@ -17,11 +17,17 @@ export const configuration: Configuration = {
         [BLOCKCHAIN_NAME.MOONRIVER]: {
             mainRpc: process.env.REACT_APP_MOONRIVER_RPC!!
         },
+        [BLOCKCHAIN_NAME.FANTOM]: {
+            mainRpc: process.env.REACT_APP_FANTOM_RPC!!
+        },
         [BLOCKCHAIN_NAME.HARMONY]: {
             mainRpc: process.env.REACT_APP_HARMONY_RPC!!
         },
-        [BLOCKCHAIN_NAME.FANTOM]: {
-            mainRpc: process.env.REACT_APP_FANTOM_RPC!!
+        [BLOCKCHAIN_NAME.ARBITRUM]: {
+            mainRpc: process.env.REACT_APP_ARBITRUM_RPC!!
+        },
+        [BLOCKCHAIN_NAME.AURORA]: {
+            mainRpc: process.env.REACT_APP_AURORA_RPC!!
         }
     }
 }
