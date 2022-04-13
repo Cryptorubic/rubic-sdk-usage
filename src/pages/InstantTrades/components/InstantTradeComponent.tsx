@@ -5,7 +5,7 @@ import { InstantTrade } from 'rubic-sdk';
 
 import { WalletButton } from 'src/components/WalletButton';
 import { useAddress } from 'src/hooks/useAddress';
-import { isOneInchLikeTrade, isUniswapV2LikeTrade } from 'rubic-sdk/lib/features/instant-trades/utils/type-guards';
+import { isOneInchLikeTrade, isUniswapV2LikeTrade } from 'rubic-sdk/lib/features/swap/type-guards';
 
 interface IProps {
     instantTrade: InstantTrade
