@@ -1,17 +1,17 @@
-import { BLOCKCHAIN_NAME, MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk';
+import { BLOCKCHAIN_NAME, BlockchainName } from 'rubic-sdk';
 
 type ExampleToken = {
     from: string;
     to: string;
 }
 
-export const exampleTokens: Record<MAINNET_BLOCKCHAIN_NAME, ExampleToken> = {
+export const exampleTokens: Record<BlockchainName, ExampleToken> = {
     [BLOCKCHAIN_NAME.ETHEREUM]: {
         from: '0x0000000000000000000000000000000000000000',
         to: '0xdac17f958d2ee523a2206206994597c13d831ec7'
     },
     [BLOCKCHAIN_NAME.BINANCE_SMART_CHAIN]: {
-        from: '0x0000000000000000000000000000000000000000',
+        from: '0x8d3e3a57c5f140b5f9feb0d43d37a347ee01c851',
         to: '0xe9e7cea3dedca5984780bafc599bd69add087d56'
     },
     [BLOCKCHAIN_NAME.POLYGON]: {
@@ -42,4 +42,8 @@ export const exampleTokens: Record<MAINNET_BLOCKCHAIN_NAME, ExampleToken> = {
         from: '0x0000000000000000000000000000000000000000',
         to: '0x2BAe00C8BC1868a5F7a216E881Bae9e662630111'
     },
+    [BLOCKCHAIN_NAME.TELOS]: {
+        from: '0x0000000000000000000000000000000000000000',
+        to: '0x0000000000000000000000000000000000000000'
+    }
 } as const;

@@ -4,7 +4,7 @@ import React, { FunctionComponent, useMemo, useState } from 'react';
 
 //@ts-ignore
 import { Card, Flex, Heading, Input, Box, Select } from 'rimble-ui';
-import { BLOCKCHAIN_NAME, MAINNET_BLOCKCHAIN_NAME, PriceToken, PriceTokenAmount } from 'rubic-sdk';
+import { BLOCKCHAIN_NAME, BlockchainName, PriceToken, PriceTokenAmount } from 'rubic-sdk';
 
 import { validateAddresses } from 'src/common/utils';
 import { useRubicSdk } from 'src/hooks/useRubicSdk';
@@ -14,10 +14,10 @@ interface IProps {
     amount: number;
     fromAddress: string;
     toAddress: string;
-    fromBlockchain: BLOCKCHAIN_NAME,
-    toBlockchain: BLOCKCHAIN_NAME,
-    onFromBlockchainChange: (blockchain: MAINNET_BLOCKCHAIN_NAME) => void;
-    onToBlockchainChange: (blockchain: MAINNET_BLOCKCHAIN_NAME) => void;
+    fromBlockchain: BlockchainName,
+    toBlockchain: BlockchainName,
+    onFromBlockchainChange: (blockchain: BlockchainName) => void;
+    onToBlockchainChange: (blockchain: BlockchainName) => void;
     onAmountChange: (amount: number) => void;
     onFromAddressChange: (address: string) => void;
     onToAddressChange: (address: string) => void;
@@ -42,7 +42,7 @@ export const CommonCCRTradeInfo: FunctionComponent<IProps> = ({
 
     const [toToken, setToToken] = useState<PriceToken | null>(null);
 
-    const options = useMemo(() => Object.values(MAINNET_BLOCKCHAIN_NAME).map(value => ({ value, label: value })), []);
+    const options = useMemo(() => Object.values(BLOCKCHAIN_NAME).map(value => ({ value, label: value })), []);
 
     useAsyncEffect(async () => {
         if (!validateAddresses(fromAddress) || !sdk) {
@@ -85,7 +85,7 @@ export const CommonCCRTradeInfo: FunctionComponent<IProps> = ({
                         required={true}
                         options={options}
                         value={fromBlockchain}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFromBlockchainChange(e.target.value as MAINNET_BLOCKCHAIN_NAME)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFromBlockchainChange(e.target.value as BlockchainName)}
                     />
                 </Heading.h4>
                 <Flex alignItems="center">
@@ -120,7 +120,7 @@ export const CommonCCRTradeInfo: FunctionComponent<IProps> = ({
                         required={true}
                         options={options}
                         value={toBlockchain}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToBlockchainChange(e.target.value as MAINNET_BLOCKCHAIN_NAME)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToBlockchainChange(e.target.value as BlockchainName)}
                     />
                 </Heading.h4>
                 {toToken && <Flex alignItems="center">

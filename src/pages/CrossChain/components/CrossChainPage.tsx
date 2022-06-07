@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { BLOCKCHAIN_NAME, CrossChainTrade, MAINNET_BLOCKCHAIN_NAME, SDK } from 'rubic-sdk';
-
-
+import { BLOCKCHAIN_NAME, BlockchainName, CrossChainTrade, SDK } from 'rubic-sdk';
 import { validateAddresses } from 'src/common/utils';
 import { CommonCCRTradeInfo } from 'src/pages/CrossChain/components/CommonCCRTradeInfo';
 import { CrossChainTradeBlock } from 'src/pages/CrossChain/components/CrossChainTrade';
-import { CrossChain } from 'src/pages/CrossChain/index';
 import { exampleTokens } from 'src/pages/InstantTrades/constants/example-tokens';
 import useAsyncEffect from 'use-async-effect';
 
@@ -18,12 +15,12 @@ type IProps = {
 }
 
 export const CrossChainPage: React.FC<IProps> = ({ sdk }) => {
-    const [fromBlockchain, setFromBlockchain] = useState<MAINNET_BLOCKCHAIN_NAME>(BLOCKCHAIN_NAME.POLYGON);
-    const [toBlockchain, setToBlockchain] = useState<MAINNET_BLOCKCHAIN_NAME>(BLOCKCHAIN_NAME.BINANCE_SMART_CHAIN);
+    const [fromBlockchain, setFromBlockchain] = useState<BlockchainName>(BLOCKCHAIN_NAME.BINANCE_SMART_CHAIN);
+    const [toBlockchain, setToBlockchain] = useState<BlockchainName>(BLOCKCHAIN_NAME.POLYGON);
 
     const [fromTokenConst, setFromTokenConst] = useState<string>(exampleTokens[fromBlockchain].from);
     const [toTokenConst, setToTokenConst] = useState<string>(exampleTokens[toBlockchain].to);
-    const [fromAmountConst, setFromAmountConst] = useState<number>(0.001);
+    const [fromAmountConst, setFromAmountConst] = useState<number>(460_000);
 
     const [trade, setTrade] = useState<CrossChainTrade | null>(null);
 
@@ -40,8 +37,14 @@ export const CrossChainPage: React.FC<IProps> = ({ sdk }) => {
                 {
                     blockchain: toBlockchain,
                     address: toTokenConst
+                }, {
+                    fromSlippageTolerance: 0.2,
+                    toSlippageTolerance: 0.02,
+                    gasCalculation: 'disabled'
                 });
-        setTrade(trade);
+
+        console.log(trade.trade);
+        setTrade(trade.trade);
     }, [setTrade, fromBlockchain, toBlockchain, fromTokenConst, fromAmountConst, toTokenConst]);
 
 

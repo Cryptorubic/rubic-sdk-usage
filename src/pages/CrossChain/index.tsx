@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { MAINNET_BLOCKCHAIN_NAME } from 'rubic-sdk';
+import React, { useMemo } from 'react';
+import { BLOCKCHAIN_NAME } from 'rubic-sdk';
 import { useRubicSdk } from 'src/hooks/useRubicSdk';
 
 
@@ -9,9 +9,7 @@ import { CrossChainPage } from 'src/pages/CrossChain/components/CrossChainPage';
 
 export const CrossChain = () => {
     const { sdk } = useRubicSdk();
-    const options = useMemo(() => Object.values(MAINNET_BLOCKCHAIN_NAME).map(value => ({ value, label: value })), []);
-
-    const [blockchain, serBlockchain] = useState<MAINNET_BLOCKCHAIN_NAME>(options[0].value);
+    const options = useMemo(() => Object.values(BLOCKCHAIN_NAME).map(value => ({ value, label: value })), []);
 
     return (
         <div>
