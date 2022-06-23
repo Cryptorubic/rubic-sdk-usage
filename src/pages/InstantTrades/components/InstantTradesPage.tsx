@@ -1,10 +1,15 @@
-import { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import React from 'react';
-import { MAINNET_BLOCKCHAIN_NAME, PriceToken, PriceTokenAmount, SDK, Web3Pure, InstantTrade } from 'rubic-sdk';
-import { useRubicSdk } from 'src/hooks/useRubicSdk';
-
+import {
+    PriceToken,
+    PriceTokenAmount,
+    SDK,
+    Web3Pure,
+    InstantTrade,
+    Blockchain, BlockchainName
+} from 'rubic-sdk';
 import { CommonTradeInfo } from 'src/pages/InstantTrades/components/CommonTradeInfo';
-import { InstantTradeComponent as InstantTradeComponent } from 'src/pages/InstantTrades/components/InstantTradeComponent';
+import { InstantTradeComponent } from 'src/pages/InstantTrades/components/InstantTradeComponent';
 import { exampleTokens } from 'src/pages/InstantTrades/constants/example-tokens';
 import useAsyncEffect from 'use-async-effect';
 import { BigNumber } from 'bignumber.js';
@@ -14,7 +19,7 @@ import { Loader, Box} from 'rimble-ui';
 
 type IProps = {
     sdk: SDK;
-    blockchain: MAINNET_BLOCKCHAIN_NAME;
+    blockchain: BlockchainName;
 }
 
 export const InstantTradesPage: React.FC<IProps> = ({ sdk, blockchain }) => {

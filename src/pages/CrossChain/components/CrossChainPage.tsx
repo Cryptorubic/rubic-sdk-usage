@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { BLOCKCHAIN_NAME, CrossChainTrade, MAINNET_BLOCKCHAIN_NAME, SDK } from 'rubic-sdk';
-
-
+import { BLOCKCHAIN_NAME, BlockchainName, CrossChainTrade, SDK } from 'rubic-sdk';
 import { validateAddresses } from 'src/common/utils';
 import { CommonCCRTradeInfo } from 'src/pages/CrossChain/components/CommonCCRTradeInfo';
 import { CrossChainTradeBlock } from 'src/pages/CrossChain/components/CrossChainTrade';
-import { CrossChain } from 'src/pages/CrossChain/index';
 import { exampleTokens } from 'src/pages/InstantTrades/constants/example-tokens';
 import useAsyncEffect from 'use-async-effect';
 
@@ -18,12 +15,12 @@ type IProps = {
 }
 
 export const CrossChainPage: React.FC<IProps> = ({ sdk }) => {
-    const [fromBlockchain, setFromBlockchain] = useState<MAINNET_BLOCKCHAIN_NAME>(BLOCKCHAIN_NAME.POLYGON);
-    const [toBlockchain, setToBlockchain] = useState<MAINNET_BLOCKCHAIN_NAME>(BLOCKCHAIN_NAME.BINANCE_SMART_CHAIN);
+    const [fromBlockchain, setFromBlockchain] = useState<BlockchainName>(BLOCKCHAIN_NAME.POLYGON);
+    const [toBlockchain, setToBlockchain] = useState<BlockchainName>(BLOCKCHAIN_NAME.ETHEREUM);
 
     const [fromTokenConst, setFromTokenConst] = useState<string>(exampleTokens[fromBlockchain].from);
     const [toTokenConst, setToTokenConst] = useState<string>(exampleTokens[toBlockchain].to);
-    const [fromAmountConst, setFromAmountConst] = useState<number>(0.001);
+    const [fromAmountConst, setFromAmountConst] = useState<number>(300);
 
     const [trade, setTrade] = useState<CrossChainTrade | null>(null);
 
@@ -33,15 +30,28 @@ export const CrossChainPage: React.FC<IProps> = ({ sdk }) => {
             return;
         }
 
-        const trade = await sdk.crossChain
+        const wrappedTrades = await sdk.crossChain
             .calculateTrade(
                 {blockchain: fromBlockchain, address: fromTokenConst},
                 fromAmountConst.toString(),
                 {
                     blockchain: toBlockchain,
                     address: toTokenConst
+                }, {
+                    fromSlippageTolerance: 0.02,
+                    toSlippageTolerance: 0.02,
+                    gasCalculation: 'disabled',
+                    fromAddress: '0x186915891222aDD6E2108061A554a1F400a25cbD'
                 });
-        setTrade(trade);
+
+        console.log(wrappedTrades);
+
+        const bestTrade = wrappedTrades[0];
+        if (bestTrade.error) {
+            console.error(bestTrade.error);
+        } else {
+            setTrade(bestTrade.trade);
+        }
     }, [setTrade, fromBlockchain, toBlockchain, fromTokenConst, fromAmountConst, toTokenConst]);
 
 
