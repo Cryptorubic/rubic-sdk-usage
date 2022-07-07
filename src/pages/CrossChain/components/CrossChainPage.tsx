@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { BLOCKCHAIN_NAME, BlockchainName, CrossChainTrade, SDK } from 'rubic-sdk';
+import {
+    BLOCKCHAIN_NAME,
+    BlockchainName,
+    CelerCrossChainTrade,
+    CROSS_CHAIN_TRADE_TYPE,
+    CrossChainTrade,
+    SDK
+} from 'rubic-sdk';
 import { validateAddresses } from 'src/common/utils';
 import { CommonCCRTradeInfo } from 'src/pages/CrossChain/components/CommonCCRTradeInfo';
 import { CrossChainTradeBlock } from 'src/pages/CrossChain/components/CrossChainTrade';
@@ -16,7 +23,7 @@ type IProps = {
 
 export const CrossChainPage: React.FC<IProps> = ({ sdk }) => {
     const [fromBlockchain, setFromBlockchain] = useState<BlockchainName>(BLOCKCHAIN_NAME.POLYGON);
-    const [toBlockchain, setToBlockchain] = useState<BlockchainName>(BLOCKCHAIN_NAME.ETHEREUM);
+    const [toBlockchain, setToBlockchain] = useState<BlockchainName>(BLOCKCHAIN_NAME.BINANCE_SMART_CHAIN);
 
     const [fromTokenConst, setFromTokenConst] = useState<string>(exampleTokens[fromBlockchain].from);
     const [toTokenConst, setToTokenConst] = useState<string>(exampleTokens[toBlockchain].to);
@@ -44,7 +51,28 @@ export const CrossChainPage: React.FC<IProps> = ({ sdk }) => {
                     fromAddress: '0x186915891222aDD6E2108061A554a1F400a25cbD'
                 });
 
-        console.log(wrappedTrades);
+        console.log(wrappedTrades)
+
+        const lifiTrade = wrappedTrades.find(wrappedTrade => wrappedTrade.tradeType === CROSS_CHAIN_TRADE_TYPE.LIFI)?.trade
+        const fromTokenPrice = lifiTrade?.from.price
+        console.log('From token price:', fromTokenPrice?.toFixed() || 'unknown')
+
+        wrappedTrades.forEach(wrappedTrade => {
+            console.log(wrappedTrade.tradeType, ':');
+            if (wrappedTrade.error) {
+                console.log('Error:', wrappedTrade.error)
+            } else {
+                console.log('Output amount:', wrappedTrade.trade!.to.tokenAmount.toFixed())
+                if (wrappedTrade.tradeType === CROSS_CHAIN_TRADE_TYPE.CELER) {
+                    console.log('Crypto fee amount', (wrappedTrade.trade as CelerCrossChainTrade)?.cryptoFeeToken.tokenAmount.toFixed())
+                    const cryptoCost = (wrappedTrade.trade as CelerCrossChainTrade)?.cryptoFeeToken.price.multipliedBy((wrappedTrade.trade as CelerCrossChainTrade)?.cryptoFeeToken.tokenAmount);
+                    console.log('Crypto fee cost:', cryptoCost?.toFixed())
+                    console.log('Ratio:', fromTokenPrice?.plus(cryptoCost).dividedBy(wrappedTrade.trade!.to.tokenAmount).toFixed())
+                } else {
+                    console.log('Ratio:', fromTokenPrice?.dividedBy(wrappedTrade.trade!.to.tokenAmount.toFixed()).toFixed())
+                }
+            }
+        })
 
         const bestTrade = wrappedTrades[0];
         if (bestTrade.error) {
