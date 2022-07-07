@@ -74,7 +74,7 @@ export const CrossChainPage: React.FC<IProps> = ({ sdk }) => {
             }
         })
 
-        const bestTrade = wrappedTrades[0];
+        const bestTrade = wrappedTrades.find(wT => wT.tradeType === CROSS_CHAIN_TRADE_TYPE.LIFI) || wrappedTrades[0];
         if (bestTrade.error) {
             console.error(bestTrade.error);
         } else {
